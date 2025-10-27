@@ -5,6 +5,15 @@ module.exports = defineConfig({
   // ДОБАВЬ ЭТОТ ПАРАМЕТР:
   publicPath: process.env.NODE_ENV === 'production' 
     ? '/IP_Belkin_final/'  // ← Замени на имя репозитория!
-    : '/'
+    : '/',
+
+
+  pwa: { /* если используете PWA */ },
+  // Для роутера
+  configureWebpack: {
+    devServer: {
+      historyApiFallback: true
+    }
+  }
 
 })
