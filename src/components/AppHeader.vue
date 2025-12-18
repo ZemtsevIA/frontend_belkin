@@ -72,6 +72,7 @@ export default {
 /* Логотип */
 .logo {
   align-self: flex-start;
+  color: #ffffff;
   font-size: clamp(24px, 2.3vw, 50px);
   font-family: 'Nekst-Bold', sans-serif;
 }

@@ -18,16 +18,16 @@
         
         <div class="social-icons">
           <a href="#" class="social-icon">
-            <img src="/images/telegram.png" alt="Telegram" />
+            <img src="`${publicPath}images/telegram.png`" alt="Telegram" />
           </a>
           <a href="#" class="social-icon">
-            <img src="/images/whatsapp.png" alt="WhatsApp" />
+            <img src="`${publicPath}images/whatsapp.png`" alt="WhatsApp" />
           </a>
           <a href="#" class="social-icon">
-            <img src="/images/twitter.png" alt="Twitter" />
+            <img src="`${publicPath}images/twitter.png`" alt="Twitter" />
           </a>
           <a href="#" class="social-icon">
-            <img src="/images/vk-logo.png" alt="VK" />
+            <img src="`${publicPath}images/vk-logo.png`" alt="VK" />
           </a>
         </div>
       </div>

@@ -1,7 +1,7 @@
 <template>
   <section class="form5">
     <div class="contact-banner">
-      <img src="/images/contact-bg.png" alt="Contact background" class="contact-image" />
+      <img :src="`${publicPath}images/contact-bg.png`" alt="Contact background" class="contact-image" />
       <div class="contact-content">
         <h2>Оцените условия труда <br /> в вашей компании</h2>
         <p>Оставьте заявку и мы свяжемся с вами</p>
@@ -42,7 +42,8 @@ export default {
       form: { name: '', phone: '', email: '' },
       errors: { name: '', phone: '', email: '' },
       isSubmitting: false,
-      buttonHover: false
+      buttonHover: false,
+      publicPath: process.env.BASE_URL
     };
   },
   mounted() {

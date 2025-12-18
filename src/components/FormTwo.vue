@@ -1,8 +1,8 @@
 <template>
-  <section class="form2">
+  <section ref="form2Section" class="form2">
     <div class="collage">
-      <img src="/images/Rectangle 95.png" alt="Safety helmet" />
-      <img src="/images/Rectangle 96.png" alt="Safety gloves" />
+      <img :src="`${publicPath}images/Rectangle 95.png`" alt="Safety helmet" />
+      <img :src="`${publicPath}images/Rectangle 96.png`" alt="Safety gloves" />
     </div>
     <div class="ride">
       <div class="ride-text">
@@ -16,26 +16,26 @@
     </div>
   </section>
 
-  <section class="form3">
+  <section ref="form3Section" class="form3">
     <h2>Преимущества сотрудничества с ИП "Белкин"</h2>
     <div class="benefits">
       <div class="benefit-item">
         <div class="benefit-icon-background">
-          <img src="/images/fire-icon.png" alt="Fire icon" class="benefit-icon" />
+          <img :src="`${publicPath}images/fire-icon.png`" alt="Fire icon" class="benefit-icon" />
         </div>
         <h3>Опыт и <br/> надежность</h3>
         <p>Компании обладает многолетним опытом в сфере охраны труда, что делает нас надежным партнером.</p>
       </div>
       <div class="benefit-item">
         <div class="benefit-icon-background">
-          <img src="/images/thumbs-up-icon.png" alt="Thumbs up icon" class="benefit-icon" />
+          <img :src="`${publicPath}images/thumbs-up-icon.png`" alt="Thumbs up icon" class="benefit-icon" />
         </div>
         <h3>Индивидуальный подход</h3>
         <p>Каждому клиенту мы предлагаем решение, разработанное под его задачи и потребности.</p>
       </div>
       <div class="benefit-item">
         <div class="benefit-icon-background">
-          <img src="/images/bolt-icon.png" alt="Bolt icon" class="benefit-icon" />
+          <img :src="`${publicPath}images/bolt-icon.png`" alt="Bolt icon" class="benefit-icon" />
         </div>
         <h3>Профессиональный коллектив</h3>
         <p>Наши специалисты постоянно повышают свои квалификации, чтобы предоставлять качественные услуги.</p>
@@ -50,28 +50,54 @@ export default {
   mounted() {
     this.setupScrollAnimations();
   },
+  data() {
+    return {
+      publicPath: process.env.BASE_URL
+    }
+  },
   methods: {
     setupScrollAnimations() {
-      const observer = new IntersectionObserver(
+      const observerOptions = { threshold: 0.3 };
+
+      // Observer for form2
+      const form2Observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              this.animateElements();
-              observer.unobserve(entry.target); // Анимируем один раз
+              this.animateForm2Elements();
+              form2Observer.unobserve(entry.target); // Анимация один раз
             }
           });
         },
-        { threshold: 0.3 } // Срабатывает, когда 30% секции видно
+        observerOptions
+      );
+
+      // Observer for form3
+      const form3Observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.animateForm3Elements();
+              form3Observer.unobserve(entry.target); // Анимация один раз
+            }
+          });
+        },
+        observerOptions
       );
 
       this.$nextTick(() => {
-        observer.observe(this.$el);
+        if (this.$refs.form2Section) {
+          form2Observer.observe(this.$refs.form2Section);
+        }
+        if (this.$refs.form3Section) {
+          form3Observer.observe(this.$refs.form3Section);
+        }
       });
     },
 
-    animateElements() {
+    animateForm2Elements() {
       const elements = document.querySelectorAll(
-        '.ride-text h2, .ride-text p, .detalis-button, .benefit-item'
+        '.ride-text h2, .ride-text p, .detalis-button'
       );
 
       elements.forEach((el, index) => {
@@ -79,7 +105,23 @@ export default {
         el.style.transform = 'translateY(20px)';
         el.style.transition = `opacity 0.6s ease ${index * 0.15}s, transform 0.6s ease ${index * 0.15}s`;
 
-        // Запускаем анимацию
+        setTimeout(() => {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, 100 + index * 150);
+      });
+    },
+
+    animateForm3Elements() {
+      const elements = document.querySelectorAll(
+        '.form3 h2, .benefit-item'
+      );
+
+      elements.forEach((el, index) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = `opacity 0.6s ease ${index * 0.15}s, transform 0.6s ease ${index * 0.15}s`;
+
         setTimeout(() => {
           el.style.opacity = '1';
           el.style.transform = 'translateY(0)';
@@ -267,6 +309,7 @@ export default {
 .ride-text h2,
 .ride-text p,
 .detalis-button,
+.form3 h2,
 .benefit-item {
   opacity: 0;
   transform: translateY(20px);

@@ -1,19 +1,8 @@
 const { defineConfig } = require('@vue/cli-service')
-module.exports = defineConfig({
-  transpileDependencies: true,
-
-  // ДОБАВЬ ЭТОТ ПАРАМЕТР:
-  publicPath: process.env.NODE_ENV === 'production' 
-    ? '/IP_Belkin_final/'  // ← Замени на имя репозитория!
+module.exports = {
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/frontend_belkin/'  // ← Замени на имя твоего репозитория!
     : '/',
+  assetsDir: '',
+};
 
-
-  pwa: { /* если используете PWA */ },
-  // Для роутера
-  configureWebpack: {
-    devServer: {
-      historyApiFallback: true
-    }
-  }
-
-})

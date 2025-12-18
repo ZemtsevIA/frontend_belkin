@@ -1,12 +1,12 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import HomePage from '@/components/HomePage.vue';
 import ServicesPage from '@/components/ServicesPage.vue';
-import AdminLogin from '@/components/AdminLogin.vue'; // Новый компонент для входа
-import AdminPanel from '@/components/AdminPanel.vue'; // Новый компонент для админ-панели
+import AdminLogin from '@/components/AdminLogin.vue';
+import AdminPanel from '@/components/AdminPanel.vue';
 
 // Функция для проверки авторизации
 const isAuthenticated = () => {
-  return !!localStorage.getItem('authToken'); // Проверяем наличие токена в localStorage
+  return !!localStorage.getItem('authToken');
 };
 
 const routes = [
@@ -31,17 +31,25 @@ const routes = [
     component: AdminPanel,
     beforeEnter: (to, from, next) => {
       if (isAuthenticated()) {
-        next(); // Пропускаем, если пользователь авторизован
+        next();
       } else {
-        next('/admin/login'); // Перенаправляем на страницу входа
+        next('/admin/login');
       }
     }
   }
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes
+  history: createWebHashHistory(),
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    // Скролл к верху при каждом переходе
+    if (savedPosition) {
+      return savedPosition; // Если есть сохранённая позиция (back/forward), используй её
+    } else {
+      return { top: 0 }; // Иначе — всегда к верху
+    }
+  }
 });
 
 export default router;

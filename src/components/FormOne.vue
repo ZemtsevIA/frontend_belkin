@@ -1,7 +1,11 @@
 <template>
   <section class="form1">
     <div class="image-container">
-      <img class="image" src="/images/image_145.png" alt="Hero image" />
+      <img 
+        class="image" 
+        :src="`${publicPath}images/image_145.png`" 
+        alt="Hero image" 
+      />
       <div class="blur-strip strip-1"></div>
       <div class="blur-strip strip-2"></div>
       <div class="blur-strip strip-3"></div>
@@ -13,7 +17,12 @@
       <h1>СПЕЦИАЛЬНАЯ ОЦЕНКА <br/> УСЛОВИЙ ТРУДА</h1>
       <p>ИП “Белкин” - это надежная компания по оценке условий труда</p>
       <button class="hero-button">Подробнее о компании</button>
-      <img class="angle" src="/images/angle.png" alt="Стрелочка" @click="scrollToNextSection" />
+      <img 
+        class="angle" 
+        :src="`${publicPath}images/angle.png`" 
+        alt="Стрелочка" 
+        @click="scrollToNextSection" 
+      />
     </div>
   </section>
 </template>
@@ -21,6 +30,11 @@
 <script>
 export default {
   name: 'FormOne',
+  data() {
+    return {
+      publicPath: process.env.BASE_URL  // ← /frontend_belkin/
+    }
+  },
   methods: {
     scrollToNextSection() {
       const nextSection = document.querySelector('.form2');
@@ -30,8 +44,6 @@ export default {
     }
   }
 }
-
-
 </script>
 
 <style scoped>

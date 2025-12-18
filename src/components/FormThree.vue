@@ -1,7 +1,7 @@
 <template>
   <section class="form3">
     <div class="banner" @mousemove="handleMouseMove">
-      <img src="/images/banner-bg.png" alt="Banner background" class="banner-image" />
+      <img :src="`${publicPath}images/banner-bg.png`" alt="Banner background" class="banner-image" />
       <div class="banner-content" ref="content">
         <h2>СПЕЦИАЛЬНАЯ ОЦЕНКА <br/> УСЛОВИЙ ТРУДА</h2>
         <p>Профессиональное оформление документов</p>
@@ -16,6 +16,11 @@ export default {
   name: 'FormThree',
   mounted() {
     this.setupScrollAnimation();
+  },
+  data() {
+    return {
+      publicPath: process.env.BASE_URL  // ← /frontend_belkin/
+    }
   },
   methods: {
     setupScrollAnimation() {

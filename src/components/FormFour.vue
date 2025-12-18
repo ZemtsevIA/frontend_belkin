@@ -9,7 +9,7 @@
         :key="review.id"
         :data-index="index"
       >
-        <img src="/images/review-icon.png" alt="Review icon" class="review-icon" />
+        <img :src="`${publicPath}images/review-icon.png`" alt="Review icon" class="review-icon" />
         <p>{{ review.text }}</p>
         <p class="author">{{ review.name }}</p>
       </div>
@@ -23,11 +23,12 @@ import axios from 'axios';
 
 export default {
   name: 'FormFour',
-  data() { return { reviews: [] }; },
+  data() { return { reviews: [], publicPath: process.env.BASE_URL }; },
   async mounted() {
     await this.fetchReviews();
     this.$nextTick(() => this.setupScrollAnimation());
   },
+  
   methods: {
     async fetchReviews() {
       try {
